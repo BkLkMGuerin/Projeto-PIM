@@ -1,15 +1,12 @@
-
 PORT_FILE = "prt.txt"
 MTM_FILE = "mtm.txt"
 CIE_FILE = "cie.txt"
 HST_FILE = "hst.txt"
 
-
-
 def media(a,b): 
   '''Esta função será usada para calcular a média das notas np1 e np2 do aluno'''
   notas_juntas = a+b
-  resultado_media = notas_juntas
+  resultado_media = notas_juntas/2
   return resultado_media
 
 def ler_txt(CAMINHO_ARQUIVO):
@@ -19,47 +16,44 @@ def ler_txt(CAMINHO_ARQUIVO):
 
 def escrever_txt(CAMINHO_ARQUIVO,aluno, media):
   with open(CAMINHO_ARQUIVO,'a') as file:
-    file.write(f'{aluno} - {media}\n')
-
-def ler__ultimo_cadastro(CAMINHO_ARQUIVO):
-  try:
-    with open(CAMINHO_ARQUIVO, 'r', encoding='utf-8') as file:
-      linhas = file.readlines()
-      if linhas:
-        return linhas[-1].strip()
-      else:
-        return f'O arquivo {CAMINHO_ARQUIVO} está vazio'
-  except FileNotFoundError:
-    return f'O arquivo {CAMINHO_ARQUIVO} não foi encontrado'
+    file.write(f'{aluno}\nMédia {media}\n')
   
 def menu_case(numero):
   match numero:
     case 1:
       print('A opção selecionada foi Português... \n')
       cadastro(PORT_FILE)
+      return True
     case 2:
       print('A opção selecionada foi Matemática... \n')
       cadastro(MTM_FILE)
+      return True
     case 3:
       print('A opção selecionada foi História... \n')
       cadastro(HST_FILE)
+      return True
     case 4:
       print('A opção selecionada foi Ciências... \n')
       cadastro(CIE_FILE)
-    
-    
+      return True
+    case 0:
+      print('Saindo do sistema...')
+      return False
+    case _:
+      print('Opção escolhida inválida por favor selecione outra opção: \n')
+      return True
 
 def cadastro(CAMINHO_ARQUIVO):
   nome_aluno = str(input('Qual o nome e Sobrenome do aluno: \n'))
   ra_aluno = str(input('Qual o RA do aluno: \n'))
   turma_aluno = str(input('Qual a  turma do aluno: \n'))
-  cadastro_aluno = (nome_aluno + 'RA: ' + ra_aluno + 'TURMA: ' + turma_aluno) #Esta é a linha que será guardada todas as informações juntas do cadastro do aluno no arquivo da matéria
+  cadastro_aluno = (f'Nome {nome_aluno}\nRA {ra_aluno}\nTurma {turma_aluno}')
   notas_aluno = float(input('Qual a np1 do aluno: \n'))
   notas_aluno2 = float(input('Qual a np2 do aluno: \n'))
   media_final = media(notas_aluno,notas_aluno2)
-  escrever_txt(CAMINHO_ARQUIVO, cadastro_aluno ,media_final)
+  escrever_txt(CAMINHO_ARQUIVO,cadastro_aluno,media_final)
   print(f'O cadastro de {nome_aluno} foi feito: \n')
-  ler__ultimo_cadastro(CAMINHO_ARQUIVO)
+  print(f'{nome_aluno} {ra_aluno} {turma_aluno} {media_final}')
 
 while True:
   print('-=-=-=-='*5)
@@ -67,10 +61,15 @@ while True:
           [ 1 ] Português
           [ 2 ] Matemática
           [ 3 ] História
-          [ 4 ] Ciências''')
+          [ 4 ] Ciências
+          [ 0 ] Sair do menu''')
   print('-=-=-=-='*5)
-  opcao_menu = int(input('Digite a opção selecionada (Ou [ 0 ] para fechar o menu): \n '))
-  menu_case(opcao_menu)
-    
-
-  
+  try:
+      opcao_menu = int(input('Digite a opção selecionada (Ou [ 0 ] para fechar o menu): \n '))
+  except ValueError:
+    print('Entrada inválida. Digite um número')
+    continue
+  deve_continuar = menu_case(opcao_menu)
+  if not deve_continuar:
+    break
+print('Programa encerrado.')
