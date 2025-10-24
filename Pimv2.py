@@ -1,7 +1,7 @@
-PORT_FILE = "prt.txt"
-MTM_FILE = "mtm.txt"
-CIE_FILE = "cie.txt"
-HST_FILE = "hst.txt"
+PORT_FILE = "portugues.txt"
+MTM_FILE = "matematica.txt"
+CIE_FILE = "ciencias.txt"
+HST_FILE = "historia.txt"
 
 def media(a,b): 
   '''Esta função será usada para calcular a média das notas np1 e np2 do aluno'''
@@ -16,7 +16,7 @@ def ler_txt(CAMINHO_ARQUIVO):
 
 def escrever_txt(CAMINHO_ARQUIVO,aluno, media):
   with open(CAMINHO_ARQUIVO,'a') as file:
-    file.write(f'{aluno}\nMédia {media}\n')
+    file.write(f'{aluno}\n{media}\n')
   
 def menu_case(numero):
   match numero:
@@ -47,7 +47,7 @@ def cadastro(CAMINHO_ARQUIVO):
   nome_aluno = str(input('Qual o nome e Sobrenome do aluno: \n'))
   ra_aluno = str(input('Qual o RA do aluno: \n'))
   turma_aluno = str(input('Qual a  turma do aluno: \n'))
-  cadastro_aluno = (f'Nome {nome_aluno}\nRA {ra_aluno}\nTurma {turma_aluno}')
+  cadastro_aluno = (f'{nome_aluno}\n{ra_aluno}\n{turma_aluno}')
   notas_aluno = float(input('Qual a np1 do aluno: \n'))
   notas_aluno2 = float(input('Qual a np2 do aluno: \n'))
   media_final = media(notas_aluno,notas_aluno2)
