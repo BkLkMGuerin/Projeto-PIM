@@ -3,12 +3,6 @@ MTM_FILE = "matematica.txt"
 CIE_FILE = "ciencias.txt"
 HST_FILE = "historia.txt"
 
-def media(a,b): 
-  '''Esta função será usada para calcular a média das notas np1 e np2 do aluno'''
-  notas_juntas = a+b
-  resultado_media = notas_juntas/2
-  return resultado_media
-
 def ler_txt(CAMINHO_ARQUIVO):
   '''Carrega o arquivo'''
   with open(CAMINHO_ARQUIVO,'r') as file:
